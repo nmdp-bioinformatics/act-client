@@ -37,6 +37,7 @@ class Typing(object):
         'seqdiff': 'list[Seqdiff]',
         'protdiff': 'list[Seqdiff]',
         'features': 'list[Feature]',
+        'novel_features': 'list[Feature]',
         'gfe': 'str',
         'hla': 'str',
         'closest_gfe': 'str',
@@ -45,13 +46,15 @@ class Typing(object):
         'status': 'str',
         'pygfe_version': 'str',
         'gfedb_version': 'str',
-        'imgtdb_version': 'str'
+        'imgtdb_version': 'str',
+        'seqann_version': 'str'
     }
 
     attribute_map = {
         'seqdiff': 'seqdiff',
         'protdiff': 'protdiff',
         'features': 'features',
+        'novel_features': 'novel_features',
         'gfe': 'gfe',
         'hla': 'hla',
         'closest_gfe': 'closest_gfe',
@@ -60,15 +63,17 @@ class Typing(object):
         'status': 'status',
         'pygfe_version': 'pygfe_version',
         'gfedb_version': 'gfedb_version',
-        'imgtdb_version': 'imgtdb_version'
+        'imgtdb_version': 'imgtdb_version',
+        'seqann_version': 'seqann_version'
     }
 
-    def __init__(self, seqdiff=None, protdiff=None, features=None, gfe=None, hla=None, closest_gfe=None, full_gene_accession=None, differences=None, status=None, pygfe_version=None, gfedb_version=None, imgtdb_version=None):  # noqa: E501
+    def __init__(self, seqdiff=None, protdiff=None, features=None, novel_features=None, gfe=None, hla=None, closest_gfe=None, full_gene_accession=None, differences=None, status=None, pygfe_version=None, gfedb_version=None, imgtdb_version=None, seqann_version=None):  # noqa: E501
         """Typing - a model defined in Swagger"""  # noqa: E501
 
         self._seqdiff = None
         self._protdiff = None
         self._features = None
+        self._novel_features = None
         self._gfe = None
         self._hla = None
         self._closest_gfe = None
@@ -78,6 +83,7 @@ class Typing(object):
         self._pygfe_version = None
         self._gfedb_version = None
         self._imgtdb_version = None
+        self._seqann_version = None
         self.discriminator = None
 
         if seqdiff is not None:
@@ -86,6 +92,8 @@ class Typing(object):
             self.protdiff = protdiff
         if features is not None:
             self.features = features
+        if novel_features is not None:
+            self.novel_features = novel_features
         if gfe is not None:
             self.gfe = gfe
         if hla is not None:
@@ -104,6 +112,8 @@ class Typing(object):
             self.gfedb_version = gfedb_version
         if imgtdb_version is not None:
             self.imgtdb_version = imgtdb_version
+        if seqann_version is not None:
+            self.seqann_version = seqann_version
 
     @property
     def seqdiff(self):
@@ -167,6 +177,27 @@ class Typing(object):
         """
 
         self._features = features
+
+    @property
+    def novel_features(self):
+        """Gets the novel_features of this Typing.  # noqa: E501
+
+
+        :return: The novel_features of this Typing.  # noqa: E501
+        :rtype: list[Feature]
+        """
+        return self._novel_features
+
+    @novel_features.setter
+    def novel_features(self, novel_features):
+        """Sets the novel_features of this Typing.
+
+
+        :param novel_features: The novel_features of this Typing.  # noqa: E501
+        :type: list[Feature]
+        """
+
+        self._novel_features = novel_features
 
     @property
     def gfe(self):
@@ -356,6 +387,27 @@ class Typing(object):
         """
 
         self._imgtdb_version = imgtdb_version
+
+    @property
+    def seqann_version(self):
+        """Gets the seqann_version of this Typing.  # noqa: E501
+
+
+        :return: The seqann_version of this Typing.  # noqa: E501
+        :rtype: str
+        """
+        return self._seqann_version
+
+    @seqann_version.setter
+    def seqann_version(self, seqann_version):
+        """Sets the seqann_version of this Typing.
+
+
+        :param seqann_version: The seqann_version of this Typing.  # noqa: E501
+        :type: str
+        """
+
+        self._seqann_version = seqann_version
 
     def to_dict(self):
         """Returns the model properties as a dict"""

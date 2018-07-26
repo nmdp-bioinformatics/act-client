@@ -98,10 +98,7 @@ class TypeAlignApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'locus' is set
-        if ('locus' not in params or
-                params['locus'] is None):
-            raise ValueError("Missing the required parameter `locus` when calling `typealign_get`")  # noqa: E501
+
         # verify the required parameter 'sequence' is set
         if ('sequence' not in params or
                 params['sequence'] is None):

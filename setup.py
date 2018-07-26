@@ -14,7 +14,7 @@
 from setuptools import setup, find_packages
 
 NAME = "gfe-client"
-VERSION = "0.0.1"
+VERSION = "0.0.3"
 # To install the library, run the following
 #
 # python setup.py install
@@ -22,19 +22,21 @@ VERSION = "0.0.1"
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 
-REQUIRES = ["urllib3 >= 1.15", "six >= 1.10", "certifi", "python-dateutil"]
+REQUIRES = ["urllib3 >= 1.15", "six >= 1.10", "certifi", "python-dateutil", "biopython"]
 
 setup(
     name=NAME,
     version=VERSION,
-    description="Allele Calling Service",
+    description="Client for the Allele Calling Service",
     author_email="mhalagan@nmdp.org",
     url="",
-    keywords=["Swagger", "Allele Calling Service"],
+    keywords=["Swagger", "Client Allele Calling Service"],
     install_requires=REQUIRES,
     packages=find_packages(),
+    scripts=['scripts/gfecli'],
     include_package_data=True,
+    zip_safe=False,
     long_description="""\
-    The Allele Calling  service provides an API for converting raw sequence data to GFE and HLA allele calls.
+    The Allele Calling service provides an API for converting raw sequence data to GFE and HLA allele calls.
     """
 )

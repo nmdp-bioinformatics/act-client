@@ -28,3 +28,8 @@ from gfe_client.models.error import Error
 from gfe_client.models.feature import Feature
 from gfe_client.models.seqdiff import Seqdiff
 from gfe_client.models.typing import Typing
+
+
+__author__ = """Mike Halagan"""
+__email__ = 'mhalagan@nmdp.org'
+__version__ = '0.0.3'
