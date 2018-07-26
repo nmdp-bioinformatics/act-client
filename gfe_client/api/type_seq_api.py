@@ -33,7 +33,7 @@ class TypeSeqApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def typeseq_get(self, locus, sequence, **kwargs):  # noqa: E501
+    def typeseq_get(self, sequence, **kwargs):  # noqa: E501
         """typeseq_get  # noqa: E501
 
         Get HLA and GFE from consensus sequence or GFE notation  # noqa: E501
@@ -56,12 +56,12 @@ class TypeSeqApi(object):
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('async'):
-            return self.typeseq_get_with_http_info(locus, sequence, **kwargs)  # noqa: E501
+            return self.typeseq_get_with_http_info(sequence, **kwargs)  # noqa: E501
         else:
-            (data) = self.typeseq_get_with_http_info(locus, sequence, **kwargs)  # noqa: E501
+            (data) = self.typeseq_get_with_http_info(sequence, **kwargs)  # noqa: E501
             return data
 
-    def typeseq_get_with_http_info(self, locus, sequence, **kwargs):  # noqa: E501
+    def typeseq_get_with_http_info(self, sequence, **kwargs):  # noqa: E501
         """typeseq_get  # noqa: E501
 
         Get HLA and GFE from consensus sequence or GFE notation  # noqa: E501
@@ -71,7 +71,7 @@ class TypeSeqApi(object):
         >>> result = thread.get()
 
         :param async bool
-        :param str locus: Valid HLA locus (required)
+        :param str locus: Valid HLA locus
         :param str sequence: Consensus sequence (required)
         :param str imgthla_version: IMGT/HLA DB Version
         :param str neo4j_url: URL for the neo4j graph
@@ -98,10 +98,7 @@ class TypeSeqApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'locus' is set
-        if ('locus' not in params or
-                params['locus'] is None):
-            raise ValueError("Missing the required parameter `locus` when calling `typeseq_get`")  # noqa: E501
+
         # verify the required parameter 'sequence' is set
         if ('sequence' not in params or
                 params['sequence'] is None):
