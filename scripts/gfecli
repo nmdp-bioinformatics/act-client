@@ -89,7 +89,7 @@ def main():
                                         "Message": tmpbody['Message']}})
                     continue
                 else:
-                    print(error, file=sys.stderr)
+                    print(error)
                     annotations.update({seqrec.id: "UNKNOWN ERROR"})
                     continue
 
