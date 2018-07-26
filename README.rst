@@ -18,17 +18,93 @@ gfe_client
      :alt: Updates
 
 
-Python Boilerplate contains all the boilerplate you need to create a Python package.
+Python client for calling the `ACT service`_
 
 
 * Free software: LGPL 3.0
 * Documentation: https://gfe-client.readthedocs.io.
 
 
-Features
---------
+Usage
+---------
 
-* TODO
+To annotated a sequence initialize a new ``BioSeqAnn`` object and then pass the sequence to the
+``annotate`` method. The sequence must be a Biopython ``Seq``. The locus of the sequence is not required but it will improve the accuracy of the annotation.
+
+
+.. code-block:: python3
+
+    import gfe_client
+
+    # Set configuration
+    config = gfe_client.Configuration()
+    config.host = "http://act.b12x.org"
+
+    # Initalize API
+    client = gfe_client.ApiClient(configuration=config)
+    api = gfe_client.TypeSeqApi(api_client=client)
+    response = typeseq_get(seq, imgthla_version="3.31.0")
+
+
+CLI
+------------
+
+.. code-block:: shell
+    
+    usage: gfecli [-h] -i FILE [-l LOCUS] [-d DBVERSION] [-a ACTSERVICE] [-f] [-v]
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -i FILE, --file FILE  input file
+      -l LOCUS, --locus LOCUS
+                            HLA locus
+      -d DBVERSION, --dbversion DBVERSION
+                            IMGT/HLA dbversion
+      -a ACTSERVICE, --actservice ACTSERVICE
+                            URL for ACT service
+      -f, --features        Return all features
+      -v, --verbose         Option for running in verbose
+
+
+Annotations
+------------
+
+.. code-block:: shell
+
+            {
+                "features": [
+                 {
+                    "accession": 2,
+                    "rank": 6,
+                    "sequence": "ATAGAAAAGGAGGGAGCTACTCTCAGGCTGCAA",
+                    "term": "exon"
+                  },
+                  {
+                    "accession": 1,
+                    "rank": 6,
+                    "sequence": "GTAAGTATGAAGGAGGCTGATGCCTGAGGTCCTTGGGATATTGTGTTTGGGAGCCCATGGGGGAGCTCACCCACCCCACAATTCCTCCTCTAGCCACATCTTCTGTGGGATCTGACCAGGTTCTGTTTTTGTTCTACCCCAG",
+                    "term": "intron"
+                  },
+                  {
+                    "accession": 1,
+                    "rank": 7,
+                    "sequence": "GCAGTGACAGTGCCCAGGGCTCTGATGTGTCTCTCACAGCTTGTAAAG",
+                    "term": "exon"
+                  }
+                ],
+                 "hla": "HLA-A*02:01:01:12",
+                 'gfe': 'HLA-Aw2-1-1-1-1-1-1-1-1-1-1-1-1-1-1-1-4'
+            }
+
+
+Install
+------------
+
+.. code-block:: shell
+    
+    pip install gfe-client
+
+
 
 Credits
 ---------
@@ -37,4 +113,4 @@ This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
-
+.. _`ACT Service`: http://act.b12x.org
