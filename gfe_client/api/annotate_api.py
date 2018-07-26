@@ -18,6 +18,7 @@ import re  # noqa: F401
 # python 2 and python 3 compatibility library
 import six
 
+from gfe_client.configuration import Configuration
 from gfe_client.api_client import ApiClient
 
 
@@ -30,7 +31,8 @@ class AnnotateApi(object):
 
     def __init__(self, api_client=None):
         if api_client is None:
-            api_client = ApiClient()
+            config = Configuration()
+            api_client = ApiClient(configuration=config)
         self.api_client = api_client
 
     def annotate_get(self, sequence, **kwargs):  # noqa: E501
