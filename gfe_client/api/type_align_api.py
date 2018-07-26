@@ -18,6 +18,7 @@ import re  # noqa: F401
 # python 2 and python 3 compatibility library
 import six
 
+from gfe_client.configuration import Configuration
 from gfe_client.api_client import ApiClient
 
 
@@ -30,10 +31,11 @@ class TypeAlignApi(object):
 
     def __init__(self, api_client=None):
         if api_client is None:
-            api_client = ApiClient()
+            config = Configuration()
+            api_client = ApiClient(configuration=config)
         self.api_client = api_client
 
-    def typealign_get(self, locus, sequence, **kwargs):  # noqa: E501
+    def typealign_get(self, sequence, **kwargs):  # noqa: E501
         """typealign_get  # noqa: E501
 
         Get HLA and GFE from consensus sequence or GFE notation  # noqa: E501
@@ -61,7 +63,7 @@ class TypeAlignApi(object):
             (data) = self.typealign_get_with_http_info(locus, sequence, **kwargs)  # noqa: E501
             return data
 
-    def typealign_get_with_http_info(self, locus, sequence, **kwargs):  # noqa: E501
+    def typealign_get_with_http_info(self, sequence, **kwargs):  # noqa: E501
         """typealign_get  # noqa: E501
 
         Get HLA and GFE from consensus sequence or GFE notation  # noqa: E501

@@ -35,14 +35,7 @@ To annotated a sequence initialize a new ``BioSeqAnn`` object and then pass the 
 .. code-block:: python3
 
     import gfe_client
-
-    # Set configuration
-    config = gfe_client.Configuration()
-    config.host = "http://act.b12x.org"
-
-    # Initalize API
-    client = gfe_client.ApiClient(configuration=config)
-    api = gfe_client.TypeSeqApi(api_client=client)
+    api = gfe_client.TypeSeqApi()
     response = typeseq_get(seq, imgthla_version="3.31.0")
 
 

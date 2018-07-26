@@ -1,0 +1,129 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from Bio import SeqIO
+
+import gfe_client
+import datetime
+import argparse
+import json
+import time
+import sys
+
+
+def main():
+    """This is run if file is directly executed, but not if imported as
+    module. Having this in a separate function  allows importing the file
+    into interactive python, and still able to execute the
+    function for testing"""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-i", "--file",
+                        required=True,
+                        help="input file",
+                        type=str)
+
+    parser.add_argument("-l", "--locus",
+                        required=False,
+                        help="HLA locus",
+                        type=str)
+
+    parser.add_argument("-d", "--dbversion",
+                        required=False,
+                        help="IMGT/HLA dbversion",
+                        default="3.31.0",
+                        type=str)
+
+    parser.add_argument("-a", "--actservice",
+                        required=False,
+                        help="URL for ACT service",
+                        default="http://act.b12x.org",
+                        type=str)
+
+    parser.add_argument("-f", "--features",
+                        help="Return all features",
+                        action='store_true')
+
+    parser.add_argument("-v", "--verbose",
+                        help="Option for running in verbose",
+                        action='store_true')
+
+    args = parser.parse_args()
+    fastafile = args.file
+    locus = args.locus
+    hostname = args.actservice
+    imgt_db = args.dbversion
+
+    features = False
+    if args.features:
+        features = True
+
+    config = gfe_client.Configuration()
+    config.host = hostname
+    api = gfe_client.ApiClient(configuration=config)
+    ann_api = gfe_client.TypeSeqApi(api_client=api)
+
+    annotations = {"imgtdb_version": imgt_db}
+    for seqrec in SeqIO.parse(fastafile, "fasta"):
+        seq = str(seqrec.seq)
+        if locus:
+            try:
+                response = ann_api.typeseq_get(sequence=seq, locus=locus, imgthla_version=imgt_db)
+            except Exception as error:
+                if hasattr(error, 'body'):
+                    tmpbody = eval(error.body)
+                    annotations.update({seqrec.id: {"Message": tmpbody['Message'],
+                                                    "log": tmpbody['log']}})
+                    continue
+                else:
+                    print(error)
+                    annotations.update({seqrec.id: "UNKNOWN ERROR"})
+                    continue
+
+        else:
+            try:
+                response = ann_api.typeseq_get(sequence=seq, imgthla_version=imgt_db)
+            except Exception as error:
+                if hasattr(error, 'body'):
+                    tmpbody = eval(error.body)
+                    annotations.update({seqrec.id: {"log": tmpbody['log'],
+                                        "Message": tmpbody['Message']}})
+                    continue
+                else:
+                    print(error, file=sys.stderr)
+                    annotations.update({seqrec.id: "UNKNOWN ERROR"})
+                    continue
+
+        annotation = response.to_dict()
+
+        if not 'pygfe_version' in annotations:
+            annotations.update({"pygfe_version": annotation['pygfe_version'],
+                                "gfedb_version": annotation['gfedb_version'],
+                                "client_version": gfe_client.__version__,
+                                "seqann_version": annotation['seqann_version']})
+
+        if features:
+            annotations.update({seqrec.id: 
+                                {
+                                "features": annotation['features'],
+                                "hla": annotation['hla'],
+                                "gfe": annotation['gfe'],
+                                "closest_gfe": annotation['closest_gfe'],
+                                "status": annotation['status'],
+                                "novel_features": annotation['novel_features']
+                                }})
+        else:
+            annotations.update({seqrec.id: 
+                        {
+                        "hla": annotation['hla'],
+                        "gfe": annotation['gfe'],
+                        "closest_gfe": annotation['closest_gfe'],
+                        "status": annotation['status']
+                        }})
+    print(json.dumps(annotations, indent=4))
+
+if __name__ == '__main__':
+    """The following will be run if file is executed directly,
+    but not if imported as a module"""
+    main()
+
+
