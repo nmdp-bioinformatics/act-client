@@ -32,4 +32,4 @@ from gfe_client.models.typing import Typing
 
 __author__ = """Mike Halagan"""
 __email__ = 'mhalagan@nmdp.org'
-__version__ = '0.0.3'
+__version__ = '0.0.4'
