@@ -39,7 +39,7 @@ To annotated a sequence initialize a new ``BioSeqAnn`` object and then pass the 
     response = typeseq_get(seq, imgthla_version="3.31.0")
 
 
-> You must have `act-service`_ running at localhost (port=443).
+  You must have `act-service`_ running at localhost (port=80).
 
 
 CLI
