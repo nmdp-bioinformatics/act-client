@@ -36,7 +36,7 @@ To annotated a sequence initialize a new ``BioSeqAnn`` object and then pass the 
 
     import gfe_client
     api = gfe_client.TypeSeqApi()
-    response = typeseq_get(seq, imgthla_version="3.31.0")
+    response = api.typeseq_get(seq, imgthla_version="3.31.0")
 
 
 CLI
