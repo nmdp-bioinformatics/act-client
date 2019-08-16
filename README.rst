@@ -39,6 +39,9 @@ To annotated a sequence initialize a new ``BioSeqAnn`` object and then pass the 
     response = api.typeseq_get(seq, imgthla_version="3.31.0")
 
 
+  You must have `act-service`_ running at localhost (port=80).
+
+
 CLI
 ------------
 
@@ -107,3 +110,4 @@ This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
 .. _`ACT Service`: http://act.b12x.org
+.. _`act-service`: https://github.com/nmdp-bioinformatics/act-service.git
