@@ -36,7 +36,8 @@ To annotated a sequence initialize a new ``BioSeqAnn`` object and then pass the 
 
     import gfe_client
     api = gfe_client.TypeSeqApi()
-    response = api.typeseq_get(seq, imgthla_version="3.31.0")
+    seq = "AGAGACTCTCCCGAGGATTTCGTGTACCAGTTTAAGGCCATGTGCTACTTCACC"  # any sequence
+    response = api.typeseq_get(seq, imgthla_version="3.31.0", locus="HLA-A")
 
 
   You must have `act-service`_ running at localhost (port=80).
